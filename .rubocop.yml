@@ -1,0 +1,29 @@
+AllCops:
+  Exclude:
+    - 'bin/**/*'
+    - 'config/**/*'
+    - 'config.ru'
+    - 'db/**/*'
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'spec/rails_helper.rb'
+  NewCops: enable
+  SuggestExtensions: false
+Layout/LineLength:
+  Max: 120
+Metrics/AbcSize:
+  Max: 25
+Metrics/BlockLength:
+  IgnoredMethods: ['describe', 'context']
+Metrics/CyclomaticComplexity:
+  Max: 10
+Metrics/MethodLength:
+  Max: 20
+Metrics/PerceivedComplexity:
+  Max: 10
+Style/BlockDelimiters:
+  EnforcedStyle: braces_for_chaining
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/Documentation:
+  Enabled: false

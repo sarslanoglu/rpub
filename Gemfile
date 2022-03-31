@@ -48,6 +48,9 @@ group :development, :test do
 
   # rspec-rails brings the RSpec testing framework to Ruby on Rails as a drop-in alternative to Minitest.
   gem 'rspec-rails', '~> 5.1.1'
+
+  # factory_bot is a fixtures replacement
+  gem 'factory_bot_rails'
 end
 
 group :development do

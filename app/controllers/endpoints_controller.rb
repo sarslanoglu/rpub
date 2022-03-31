@@ -4,6 +4,11 @@ class EndpointsController < ApplicationController
   before_action :set_headers
   before_action :find_endpoint, only: %i[update destroy]
 
+  rescue_from StandardError do |_exception|
+    render json: { errors: [{ code: 'internal_error', detail: 'Something went wrong. Please try again later' }] },
+           status: :internal_server_error
+  end
+
   def index
     @endpoints = Endpoint.all
     render json: prepare_list_endpoint_json
@@ -20,9 +25,6 @@ class EndpointsController < ApplicationController
   rescue ActiveRecord::RecordNotUnique
     render json: { errors: [{ code: 'duplicate_entry', detail: 'Same verb and path is already used in the server' }] },
            status: :unprocessable_entity
-  rescue StandardError
-    render json: { errors: [{ code: 'internal_error', detail: 'Something went wrong. Please try again later' }] },
-           status: :internal_server_error
   end
 
   def update
@@ -35,9 +37,6 @@ class EndpointsController < ApplicationController
   rescue ActiveRecord::RecordNotUnique
     render json: { errors: [{ code: 'duplicate_entry', detail: 'Same verb and path is already used in the server' }] },
            status: :unprocessable_entity
-  rescue StandardError
-    render json: { errors: [{ code: 'internal_error', detail: 'Something went wrong. Please try again later' }] },
-           status: :internal_server_error
   end
 
   def destroy

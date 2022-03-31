@@ -59,7 +59,7 @@ RSpec.describe 'Endpoints', type: :request do
       end
     end
 
-    context 'with dublicate entry' do
+    context 'with duplicate entry' do
       it 'returns meaningful error' do
         raw_body = {
           data: {

@@ -22,7 +22,7 @@ RSpec.describe 'Mocks', type: :request do
     end
 
     context 'with invalid parameters' do
-      it 'returns error message' do
+      it 'returns error message when requested with not existing verb' do
         create(:endpoint, verb: 'GET', path: '/greeting',
                           response: { code: 422, body: '"{ "message": "Hello, world" }"' })
 
@@ -34,7 +34,7 @@ RSpec.describe 'Mocks', type: :request do
         expect(json['errors'][0]['detail']).to eq('Requested page `/greeting` does not exist')
       end
 
-      it 'returns error message with non existing' do
+      it 'returns error message when verb/path is not exists' do
         post '/greeting/hello'
 
         expect(response.status).to eq(404)

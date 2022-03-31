@@ -4,9 +4,13 @@ class EndpointsController < ApplicationController
   before_action :set_headers
   before_action :find_endpoint, only: %i[update destroy]
 
-  rescue_from StandardError do |_exception|
+  rescue_from StandardError do
     render json: { errors: [{ code: 'internal_error', detail: 'Something went wrong. Please try again later' }] },
            status: :internal_server_error
+  end
+  rescue_from ActiveRecord::RecordNotUnique do
+    render json: { errors: [{ code: 'duplicate_entry', detail: 'Same verb and path is already used in the server' }] },
+           status: :unprocessable_entity
   end
 
   def index
@@ -22,9 +26,6 @@ class EndpointsController < ApplicationController
       render json: { errors: [{ code: 'unprocessable_entity', detail: @endpoint.errors }] },
              status: :unprocessable_entity
     end
-  rescue ActiveRecord::RecordNotUnique
-    render json: { errors: [{ code: 'duplicate_entry', detail: 'Same verb and path is already used in the server' }] },
-           status: :unprocessable_entity
   end
 
   def update
@@ -34,9 +35,6 @@ class EndpointsController < ApplicationController
       render json: { errors: [{ code: 'unprocessable_entity', detail: @endpoint.errors }] },
              status: :unprocessable_entity
     end
-  rescue ActiveRecord::RecordNotUnique
-    render json: { errors: [{ code: 'duplicate_entry', detail: 'Same verb and path is already used in the server' }] },
-           status: :unprocessable_entity
   end
 
   def destroy

@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   resources :endpoints, only: [:index, :create, :update, :destroy]
+
+  match '*path' => 'mocks#mock', via: [:get, :head, :post, :put, :patch, :delete, :connect, :options, :trace], constraints: -> (req) { !(req.fullpath =~ /^\/rails\/.*/) }
 end

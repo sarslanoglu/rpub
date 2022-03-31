@@ -3,7 +3,7 @@
 class Endpoint < ApplicationRecord
   self.primary_key = 'id'
 
-  before_validation :set_id
+  before_validation :set_id, on: :create
 
   HTTP_VERBS = %w[GET HEAD POST PUT DELETE CONNECT OPTIONS TRACE].freeze
   RESPONSE_JSON_SCHEMA = Rails.root.join('config', 'schemas', 'response.json')

@@ -61,4 +61,7 @@ end
 group :test do
   # Shoulda Matchers provides RSpec- and Minitest-compatible one-liners to test common Rails functionality
   gem 'shoulda-matchers', '~> 5.1'
+
+  # This gem is a port of Perl's Data::Faker library that generates fake data.
+  gem 'faker'
 end
